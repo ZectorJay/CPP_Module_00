@@ -6,17 +6,36 @@
 /*   By: hmickey <hmickey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 16:16:18 by hmickey           #+#    #+#             */
-/*   Updated: 2021/05/21 18:56:17 by hmickey          ###   ########.fr       */
+/*   Updated: 2021/05/21 20:15:18 by hmickey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.class.hpp"
 
-void	PhoneBook::_fill_info( void ){
+int		PhoneBook::_change_contact( void ){
+	std::string		answer;
+	std::cout<<"\033[1;31m\n Contact list is full, do u ";
+	std::cout<<"want rewrite some1?"<<std::endl;
+	std::cout<<"Write index of contact if you want to change it"<<std::endl;
+	std::cout<<"    Any another input will mean NO CHANGES\033[0m"<<std::endl;
+	std::getline(std::cin, answer);
+	if (isdigit(answer[0]) && answer[0] > '0' && answer[0] < '9'){
+		this->_index = answer[0] & 0x0F;
+		return (1);
+	}
+	return (0);
+}
+
+void	PhoneBook::_fill_contact_info( void ){
+	if (this->_total_contacts == 8)
+	{
+			if (!this->_change_contact())
+				return ;
+	}
 	std::cout<<"\033[1;36mEnter first name: \033[0m";
 	std::getline(std::cin, this->_first_name[this->_index]);
 	std::cout<<"\033[1;36mEnter second name: \033[0m";
-	std::getline(std::cin, this->_second_name[this->_index]);
+	std::getline(std::cin, this->_last_name[this->_index]);
 	std::cout<<"\033[1;36mEnter nickname: \033[0m";
 	std::getline(std::cin, this->_nickname[this->_index]);
 	std::cout<<"\033[1;36mEnter login: \033[0m";
@@ -37,11 +56,25 @@ void	PhoneBook::_fill_info( void ){
 	std::getline(std::cin, this->_darkest_secret[this->_index]);
 	std::cout<<"\n"<<std::endl;
 	this->_index += 1;
+	if (this->_total_contacts < 8)
+		this->_total_contacts +=1;
 }
 
 void	PhoneBook::_short_output( std::string str) const
 {
-	;
+	int	i;
+
+	i = str.length();
+	if (i > 10)
+		std::cout<<str.substr(0, 9)<<".|";
+	else{
+		std::cout.width(10);
+		std::cout<<str<<"|";
+	}
+}
+
+void	PhoneBook::_search_contact( void ){
+	
 }
 
 int		PhoneBook::search_phone_book( void ){
@@ -52,12 +85,17 @@ int		PhoneBook::search_phone_book( void ){
 	std::cout<<"___________________"<<std::endl;
 	std::cout<<"|  index   |first name|last name | nickname |"<<std::endl;
 	std::cout<<"|----------|----------|----------|----------|"<<std::endl;
-	while (++i < this->_index)
-	{	
-		std::cout<<"|  "<<i<<"  |"<<std::endl;
-		this->_short_output( this->_first_name );
-		this->_short_output( this->_last_name );
-		this->_short_output( this->_nickname );
+	while (++i < this->_total_contacts){	
+		std::cout<<"|     "<<i<<"    |";
+		this->_short_output( this->_first_name[i] );
+		this->_short_output( this->_last_name[i] );
+		this->_short_output( this->_nickname[i] );
+		std::cout<<std::endl;
+	if (i < this->_total_contacts - 1)
+		std::cout<<"|----------|----------|----------|----------|"<<std::endl;
 	}
+	std::cout<<" ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔"<<std::endl;
+	std::cout<<"\033[0m"<<std::endl;
+	this->_search_contact();
 	return (1);
 }

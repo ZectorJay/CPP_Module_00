@@ -6,7 +6,7 @@
 /*   By: hmickey <hmickey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 16:48:48 by hmickey           #+#    #+#             */
-/*   Updated: 2021/05/21 18:54:02 by hmickey          ###   ########.fr       */
+/*   Updated: 2021/05/21 20:07:33 by hmickey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,18 @@ public:
 	int		check_command( void ) const;
 	int		fill_phone_book( void );
 	int		search_phone_book( void );
-	void	change_contact( void );
 	
 private:
 
-	void			_fill_info( void );
+	void			_fill_contact_info( void );
 	void			_short_output( std::string str ) const;
-	int				_index;	
-	std::string		_command[8];
+	void			_search_contact( void );
+	int				_change_contact( void );
+	int				_index;
+	int				_total_contacts;
+	std::string		_command;
 	std::string		_first_name[8];
-	std::string		_second_name[8];
+	std::string		_last_name[8];
 	std::string		_nickname[8];
 	std::string		_login[8];
 	std::string		_postal_adress[8];
