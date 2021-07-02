@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.class.hpp                                :+:      :+:    :+:   */
+/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmickey <hmickey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 16:48:48 by hmickey           #+#    #+#             */
-/*   Updated: 2021/05/21 20:07:33 by hmickey          ###   ########.fr       */
+/*   Updated: 2021/07/02 17:22:52 by hmickey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ public:
 	
 private:
 
+	void    		_color_output( std::string field, std::string str ) const;
 	void			_fill_contact_info( void );
 	void			_short_output( std::string str ) const;
 	void			_search_contact( void );
